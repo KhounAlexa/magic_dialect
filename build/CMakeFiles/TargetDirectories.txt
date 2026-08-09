@@ -1,0 +1,11 @@
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/intrinsics_gen.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/omp_gen.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/acc_gen.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/RISCVTargetParserTableGen.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/mlir-tablegen-targets.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/mlir-headers.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/mlir-generic-headers.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/mlir-doc.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/magic-opt.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/quantum/magic_dialect/build/CMakeFiles/rebuild_cache.dir
