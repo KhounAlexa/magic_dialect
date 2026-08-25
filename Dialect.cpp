@@ -79,12 +79,35 @@ void MagicDialect::initialize() {
   return mlir::success();
 }
 
-// Verification: a magic.consume must consume a value produced by magic.move.
+// Verification: a magic.consume must consume a value produced by magic.move,
+// and its qubit operand -- like every qubit-consuming op's qubit operand --
+// must not be forked (see the shared comment on TGateOp::verify below).
 ::mlir::LogicalResult ConsumeOp::verify() {
   if (!getMagicState().getDefiningOp<magic::MoveOp>()) {
     return emitOpError(
         "magic state operand must be produced by a 'magic.move' op -- "
         "a magic state must be moved before it can be consumed");
+  }
+  if (!getQubit().hasOneUse()) {
+    return emitOpError(
+        "qubit operand is used more than once -- a logical qubit value "
+        "cannot be forked; the qubit produced by one gate must be threaded "
+        "into exactly one next use, not reused independently by two gates");
+  }
+  return mlir::success();
+}
+
+// Verification: a logical qubit value is linear too, just like a magic
+// state -- a single physical qubit cannot independently undergo two
+// unrelated gate operations. The value must have exactly one use (this op
+// itself, since verify() only runs once this op already IS a use), so it
+// is enough to reject any *additional* use.
+::mlir::LogicalResult TGateOp::verify() {
+  if (!getQubit().hasOneUse()) {
+    return emitOpError(
+        "qubit operand is used more than once -- a logical qubit value "
+        "cannot be forked; the qubit produced by one gate must be threaded "
+        "into exactly one next use, not reused independently by two gates");
   }
   return mlir::success();
 }

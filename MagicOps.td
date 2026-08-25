@@ -47,4 +47,5 @@ def TGateOp : Magic_Op<"tgate"> {
   let summary = "A T gate acting on a logical qubit (pre-lowering form)";
   let arguments = (ins QubitType:$qubit);
   let results = (outs QubitType:$result);
+  let hasVerifier = 1;
 }
