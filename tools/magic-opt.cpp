@@ -1,5 +1,5 @@
-#include "Dialect.h"
-#include "Passes.h"
+#include "magic/Dialect.h"
+#include "magic/Passes.h"
 #include "mlir/Dialect/Func/IR/FuncOps.h"
 #include "mlir/IR/MLIRContext.h"
 #include "mlir/IR/Dialect.h"

@@ -6,12 +6,12 @@
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/OpDefinition.h"
 
-#include "MagicDialect.h.inc"
+#include "magic/MagicDialect.h.inc"
 
 #define GET_TYPEDEF_CLASSES
-#include "MagicTypes.h.inc"
+#include "magic/MagicTypes.h.inc"
 
 #define GET_OP_CLASSES
-#include "MagicOps.h.inc"
+#include "magic/MagicOps.h.inc"
 
 #endif

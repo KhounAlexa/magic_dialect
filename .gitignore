@@ -1,0 +1,19 @@
+# CMake build trees
+/build/
+/build-*/
+CMakeUserPresets.json
+compile_commands.json
+
+# TableGen output is generated into the build tree; never commit it.
+*.inc
+
+# Dependency graphs produced by --print-magic-deps / the test runner
+*.dot
+*.png
+tests/out/
+
+# Editors / OS
+.vscode/
+.idea/
+.cache/
+.DS_Store

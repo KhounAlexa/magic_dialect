@@ -1,5 +1,5 @@
-#include "Dialect.h"
-#include "Passes.h"
+#include "magic/Dialect.h"
+#include "magic/Passes.h"
 
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinOps.h"

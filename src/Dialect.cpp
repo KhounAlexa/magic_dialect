@@ -1,33 +1,30 @@
-#include "Dialect.h"
+#include "magic/Dialect.h"
 
 #include "mlir/IR/DialectImplementation.h"
 #include "llvm/ADT/TypeSwitch.h"
 
 using namespace magic;
 
-MagicDialect::MagicDialect(mlir::MLIRContext *context)
-    : mlir::Dialect(getDialectNamespace(), context, mlir::TypeID::get<MagicDialect>()) {
-  initialize();
-}
-
-MagicDialect::~MagicDialect() = default;
+// Constructor, destructor and TypeID definition are generated from
+// MagicOps.td (-gen-dialect-defs); only initialize() is hand-written.
+#include "magic/MagicDialect.cpp.inc"
 
 void MagicDialect::initialize() {
   addOperations<
 #define GET_OP_LIST
-#include "MagicOps.cpp.inc"
+#include "magic/MagicOps.cpp.inc"
   >();
   addTypes<
 #define GET_TYPEDEF_LIST
-#include "MagicTypes.cpp.inc"
+#include "magic/MagicTypes.cpp.inc"
   >();
 }
 
 #define GET_TYPEDEF_CLASSES
-#include "MagicTypes.cpp.inc"
+#include "magic/MagicTypes.cpp.inc"
 
 #define GET_OP_CLASSES
-#include "MagicOps.cpp.inc"
+#include "magic/MagicOps.cpp.inc"
 
 // Verification: a magic state resource is linear -- once created it must be
 // moved exactly once (never abandoned, never forked to more than one move).
@@ -111,5 +108,3 @@ void MagicDialect::initialize() {
   }
   return mlir::success();
 }
-
-MLIR_DEFINE_EXPLICIT_TYPE_ID(::magic::MagicDialect)
