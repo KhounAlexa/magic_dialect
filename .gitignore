@@ -10,7 +10,6 @@ compile_commands.json
 # Dependency graphs produced by --print-magic-deps / the test runner
 *.dot
 *.png
-tests/out/
 
 # Editors / OS
 .vscode/
