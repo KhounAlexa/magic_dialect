@@ -18,7 +18,8 @@ using namespace mlir::magic;
 
 namespace {
 
-struct LowerTGatePass : public impl::LowerTGateBase<LowerTGatePass> {
+struct LowerTGatePass
+    : public mlir::magic::impl::LowerTGateBase<LowerTGatePass> {
   using LowerTGateBase::LowerTGateBase;
 
   void runOnOperation() override {

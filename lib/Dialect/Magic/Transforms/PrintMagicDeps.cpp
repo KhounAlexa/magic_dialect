@@ -24,7 +24,7 @@ namespace {
 // The `dot-file` option, pass name and description are generated from
 // Passes.td into PrintMagicDepsBase.
 struct PrintMagicDepsPass
-    : public impl::PrintMagicDepsBase<PrintMagicDepsPass> {
+    : public mlir::magic::impl::PrintMagicDepsBase<PrintMagicDepsPass> {
   using PrintMagicDepsBase::PrintMagicDepsBase;
 
   void runOnOperation() override {

@@ -6,7 +6,9 @@ import lit.formats
 from lit.llvm import llvm_config
 
 config.name = "MAGIC"
-config.test_format = lit.formats.ShTest(not llvm_config.use_lit_shell)
+# Always use lit's internal shell: external execution is deprecated as of
+# lit 23 and is rejected by newer lit releases.
+config.test_format = lit.formats.ShTest(execute_external=False)
 config.suffixes = [".mlir"]
 
 config.test_source_root = os.path.dirname(__file__)

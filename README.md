@@ -27,19 +27,31 @@ checked in.
 
 ## Build
 
-Requires an installed LLVM/MLIR (developed against LLVM 18), plus `lit` and
-`FileCheck` for the tests.
+Requires an installed LLVM/MLIR, plus `lit` and `FileCheck` for the tests.
+Tested with LLVM 20.1.8 (Homebrew `llvm@20`, macOS arm64).
 
 ```bash
+# Homebrew
 cmake -S . -B build -G Ninja \
-  -DMLIR_DIR=/usr/lib/llvm-18/lib/cmake/mlir \
+  -DMLIR_DIR=$(brew --prefix llvm@20)/lib/cmake/mlir \
   -DLLVM_EXTERNAL_LIT=$(which lit)
+
+# Ubuntu (apt.llvm.org packages)
+cmake -S . -B build -G Ninja \
+  -DMLIR_DIR=/usr/lib/llvm-20/lib/cmake/mlir \
+  -DLLVM_EXTERNAL_LIT=$(which lit)
+
 cmake --build build
 ```
 
 `lit` can be installed with `pip install lit`; `FileCheck` and `not` are
-taken from the LLVM tools directory (`llvm-18-tools` on Ubuntu). Pass
-`-DMAGIC_INCLUDE_TESTS=OFF` to configure without the test target.
+taken from the LLVM tools directory. Pass `-DMAGIC_INCLUDE_TESTS=OFF` to
+configure without the test target.
+
+> lit does not support spaces in paths. Keep the source and build
+> directories on a path without spaces (e.g. not under
+> `~/Library/Application Support`), or the tests fail with
+> "command not found".
 
 ## Test
 
