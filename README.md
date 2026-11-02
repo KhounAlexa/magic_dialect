@@ -77,6 +77,29 @@ Passes are declared in `Passes.td` and registered via
   side-effect-free MLIR analysis) and rendered by
   `mlir::magic::writeDependencyGraphDot`, so other exporters can reuse it.
 
+  `dot-style` picks one of two drawings of the same graph:
+
+  ```bash
+  build/bin/magic-opt --print-magic-deps="dot-file=deps.dot dot-style=qiskit"  input.mlir  # default
+  build/bin/magic-opt --print-magic-deps="dot-file=deps.dot dot-style=classic" input.mlir
+  ```
+
+  `qiskit` follows the conventions of Qiskit's `dag_drawer`: one
+  dashed cluster per function, drawn top to bottom from a `Source` node to
+  a `Sink` node. Green ellipses are wires entering the circuit (block
+  arguments), light blue ellipses are operations (`create`, `move`,
+  `consume`, `tgate`), and red ellipses are values leaving it (returned
+  or never used). Every edge is labelled with its wire: `q[i]` for a
+  logical qubit, `m[i]` for a magic state, `c[i]` for a classical bit.
+  Each op node keeps its source location as a `tooltip`, visible in SVG
+  output (`dot -Tsvg`).
+
+  `classic` is the original magic-opt picture: left to right, colored
+  boxes labelled with each op's source location, `consume` and `tgate`
+  drawn as double octagons marking where a magic state is required, and
+  returned values flowing into a `return` node. Source, Sink and output
+  nodes are not drawn in this style.
+
 ## Moving into the MLIR tree
 
 | Here | In-tree |

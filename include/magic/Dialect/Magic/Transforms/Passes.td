@@ -23,12 +23,17 @@ def PrintMagicDeps : Pass<"print-magic-deps", "::mlir::ModuleOp"> {
     (`magic.create`/`move`/`consume`). When `dot-file` is set, the
     dependency DAG computed by `magic::DependencyGraph` is written in
     Graphviz DOT format to that path (`-` for stdout). Without it, the pass
-    has no filesystem side effects.
+    has no filesystem side effects. `dot-style` selects the drawing:
+    `qiskit` (default) or `classic`.
   }];
   let options = [
     Option<"dotFile", "dot-file", "std::string", /*default=*/"",
            "Write the dependency DAG in Graphviz DOT format to this path "
-           "('-' for stdout). No file is written when empty.">
+           "('-' for stdout). No file is written when empty.">,
+    Option<"dotStyle", "dot-style", "std::string", /*default=*/"\"qiskit\"",
+           "Drawing style for the DOT export: 'qiskit' (top-to-bottom, "
+           "Source/Sink, wire-labelled edges, like Qiskit's dag_drawer) or "
+           "'classic' (left-to-right boxes with source locations).">
   ];
 }
 

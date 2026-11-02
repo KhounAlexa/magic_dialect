@@ -21,8 +21,8 @@ using namespace mlir::magic;
 
 namespace {
 
-// The `dot-file` option, pass name and description are generated from
-// Passes.td into PrintMagicDepsBase.
+// The `dot-file` and `dot-style` options, pass name and description are
+// generated from Passes.td into PrintMagicDepsBase.
 struct PrintMagicDepsPass
     : public mlir::magic::impl::PrintMagicDepsBase<PrintMagicDepsPass> {
   using PrintMagicDepsBase::PrintMagicDepsBase;
@@ -68,6 +68,13 @@ struct PrintMagicDepsPass
     if (path.empty())
       return;
 
+    DotStyle style;
+    if (!parseDotStyle(dotStyle.getValue(), style)) {
+      module.emitError() << "unknown dot-style '" << dotStyle.getValue()
+                         << "'; expected 'qiskit' or 'classic'";
+      return signalPassFailure();
+    }
+
     const auto &graph = getAnalysis<DependencyGraph>();
 
     std::string errorMessage;
@@ -78,7 +85,7 @@ struct PrintMagicDepsPass
                          << path << "': " << errorMessage;
       return signalPassFailure();
     }
-    writeDependencyGraphDot(graph, output->os());
+    writeDependencyGraphDot(graph, output->os(), style);
     output->keep();
 
     if (path != "-")
